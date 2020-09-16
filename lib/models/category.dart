@@ -8,6 +8,6 @@ class Category {
   const Category({
     @required this.id,
     @required this.title,
-    this.color = Colors.white70,
+    this.color = Colors.white,
   });
 }

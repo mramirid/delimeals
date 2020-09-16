@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'category_item.dart';
-import 'dummy_data.dart';
+import '../data/dummy_data.dart';
+import '../widgets/category_item.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
