@@ -10,6 +10,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final void Function(String) removeMeal;
 
   String get _complexityText {
     switch (complexity) {
@@ -44,10 +45,18 @@ class MealItem extends StatelessWidget {
     @required this.duration,
     @required this.complexity,
     @required this.affordability,
+    @required this.removeMeal,
   });
 
-  void selectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(MealDetailPage.routeName, arguments: id);
+  Future<void> selectMeal(BuildContext context) async {
+    final mealId = await Navigator.of(context).pushNamed(
+      MealDetailPage.routeName,
+      arguments: id,
+    );
+
+    if (mealId != null) {
+      removeMeal(mealId as String);
+    }
   }
 
   @override
@@ -65,8 +74,8 @@ class MealItem extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
+                    topLeft: Radius.circular(15),
                   ),
                   child: Image.network(
                     imageUrl,

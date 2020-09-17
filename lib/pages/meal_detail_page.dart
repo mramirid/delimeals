@@ -20,15 +20,26 @@ class MealDetailPage extends StatelessWidget {
             Container(
               height: 300,
               width: double.infinity,
-              child: Image.network(
-                selectedMeal.imageUrl,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(50),
+                  bottomLeft: Radius.circular(50),
+                ),
+                child: Image.network(
+                  selectedMeal.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Ingredients(selectedMeal.ingredients),
             Steps(selectedMeal.steps),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).pop(mealId),
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.delete, color: Colors.white),
       ),
     );
   }
