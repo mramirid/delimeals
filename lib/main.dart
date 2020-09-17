@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'pages/category_meals_page.dart';
+import 'pages/filters_page.dart';
+import 'pages/main_page.dart';
 import 'pages/meal_detail_page.dart';
-import 'pages/tabs_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,12 +28,13 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        '/': (_) => TabsPage(),
+        MainPage.routeName: (_) => MainPage(),
         CategoryMealsPage.routeName: (_) => CategoryMealsPage(),
         MealDetailPage.routeName: (_) => MealDetailPage(),
+        FiltersPage.routeName: (_) => FiltersPage(),
       },
       onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: (_) => TabsPage());
+        return MaterialPageRoute(builder: (_) => MainPage());
       },
     );
   }

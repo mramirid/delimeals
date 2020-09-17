@@ -186,8 +186,8 @@ const dummyMeals = [
   Meal(
     id: 'm5',
     categoryIds: [
-      'c2'
-          'c5',
+      'c2',
+      'c5',
       'c10',
     ],
     title: 'Salad with Smoked Salmon',
@@ -198,7 +198,7 @@ const dummyMeals = [
     duration: 15,
     ingredients: [
       'Arugula',
-      'Lamb\'s Lettuce',
+      "Lamb's Lettuce",
       'Parsley',
       'Fennel',
       '200g Smoked Salmon',

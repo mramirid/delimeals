@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/categories_screen.dart';
-import '../widgets/favorites_screen.dart';
+import '../widgets/main/categories/categories_screen.dart';
+import '../widgets/main/favorites/favorites_screen.dart';
+import '../widgets/main/main_drawer.dart';
 
-class TabsPage extends StatefulWidget {
+class MainPage extends StatefulWidget {
+  static const routeName = '/';
+
   @override
-  _TabsPageState createState() => _TabsPageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _TabsPageState extends State<TabsPage> {
+class _MainPageState extends State<MainPage> {
   final List<Map<String, Object>> _pages = [
     {'title': 'Categories', 'page': CategoriesScreen()},
     {'title': 'Favorites', 'page': FavoritesScreen()}
@@ -27,6 +30,7 @@ class _TabsPageState extends State<TabsPage> {
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title'] as String),
       ),
+      drawer: MainDrawer(),
       body: _pages[_selectedPageIndex]['page'] as StatelessWidget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
@@ -34,7 +38,6 @@ class _TabsPageState extends State<TabsPage> {
         backgroundColor: Theme.of(context).primaryColor,
         selectedItemColor: Theme.of(context).accentColor,
         unselectedItemColor: Colors.white,
-        // type: BottomNavigationBarType.shifting,
         items: [
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
