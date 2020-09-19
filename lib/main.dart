@@ -16,13 +16,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Meal> _availableMeals = dummyMeals;
   var _filters = Filters(
     glutenFree: false,
     lactoseFree: false,
     vegetarian: false,
     vegan: false,
   );
+  List<Meal> _availableMeals = dummyMeals;
+  final List<Meal> _favoritedMeals = [];
 
   void _setFilters(Filters newFilters) {
     setState(() {
@@ -41,6 +42,26 @@ class _MyAppState extends State<MyApp> {
         }
       }).toList();
     });
+  }
+
+  void _toggleFavorite(String mealId) {
+    final existingIndex = _favoritedMeals.indexWhere((favoritedMeal) {
+      return favoritedMeal.id == mealId;
+    });
+
+    setState(() {
+      if (existingIndex >= 0) {
+        _favoritedMeals.removeAt(existingIndex);
+      } else {
+        _favoritedMeals.add(
+          dummyMeals.firstWhere((meal) => meal.id == mealId),
+        );
+      }
+    });
+  }
+
+  bool _isMealFavorite(String mealId) {
+    return _favoritedMeals.any((favoritedMeal) => favoritedMeal.id == mealId);
   }
 
   @override
@@ -63,13 +84,13 @@ class _MyAppState extends State<MyApp> {
             ),
       ),
       routes: {
-        MainPage.routeName: (_) => MainPage(),
+        MainPage.routeName: (_) => MainPage(_favoritedMeals),
         CategoryMealsPage.routeName: (_) => CategoryMealsPage(_availableMeals),
-        MealDetailPage.routeName: (_) => MealDetailPage(),
+        MealDetailPage.routeName: (_) => MealDetailPage(_isMealFavorite, _toggleFavorite),
         FiltersPage.routeName: (_) => FiltersPage(_filters, _setFilters),
       },
       onUnknownRoute: (_) {
-        return MaterialPageRoute(builder: (_) => MainPage());
+        return MaterialPageRoute(builder: (_) => MainPage(_favoritedMeals));
       },
     );
   }

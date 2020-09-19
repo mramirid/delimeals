@@ -1,7 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
-import '../../models/meal.dart';
-import '../../pages/meal_detail_page.dart';
+import '../models/meal.dart';
+import '../pages/meal_detail_page.dart';
 
 class MealItem extends StatelessWidget {
   final String id;
@@ -10,7 +12,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
-  final void Function(String) removeMeal;
+  final void Function() forceRebuildScreen;
 
   String get _complexityText {
     switch (complexity) {
@@ -45,17 +47,17 @@ class MealItem extends StatelessWidget {
     @required this.duration,
     @required this.complexity,
     @required this.affordability,
-    @required this.removeMeal,
+    this.forceRebuildScreen,
   });
 
   Future<void> selectMeal(BuildContext context) async {
-    final mealId = await Navigator.of(context).pushNamed(
+    await Navigator.of(context).pushNamed(
       MealDetailPage.routeName,
       arguments: id,
     );
 
-    if (mealId != null) {
-      removeMeal(mealId as String);
+    if (forceRebuildScreen != null) {
+      forceRebuildScreen();
     }
   }
 
