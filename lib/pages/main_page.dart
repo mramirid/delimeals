@@ -12,11 +12,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final List<Map<String, Object>> _pages = [
+  final _pages = [
     {'title': 'Categories', 'page': CategoriesScreen()},
     {'title': 'Favorites', 'page': FavoritesScreen()}
   ];
-  int _selectedPageIndex = 0;
+  var _selectedPageIndex = 0;
 
   void _selectPage(int index) {
     setState(() {
